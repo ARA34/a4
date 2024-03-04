@@ -16,10 +16,11 @@ from collections import namedtuple
 
 class WebAPI(ABC):
     def __init__(self):
-        self.apikey = None
+        self.api_key = None
         self.data = None
         self.url = None
         self.baseurl = None
+        self.keyword = None
 
 
     def _download_url(self, url: str) -> dict:
@@ -43,6 +44,10 @@ class WebAPI(ABC):
     def set_apikey(self, apikey:str) -> None:
         self.api_key = apikey
 
+    def set_keyword(self, keyword: str) -> None:
+        self.keyword = keyword
+
+
     @abstractmethod
     def load_data(self):
         try:
@@ -54,4 +59,12 @@ class WebAPI(ABC):
 
     @abstractmethod
     def transclude(self, message:str) -> str:
-        pass
+        if self.keyword in message:
+            message_list = message.split()
+            for m in range(len(message_list)):
+                if message_list[m] == self.keyword:
+                    message_list[m] = "[Pull this data]"
+            output = " ".join(message_list)
+        else:
+            output = message
+        return output

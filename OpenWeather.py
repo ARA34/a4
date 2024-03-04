@@ -10,9 +10,9 @@
 # STUDENT ID
 
 from WebAPI import *
-from collections import namedtuple
 
 # api.openweathermap.org/data/2.5/weather?zip={zip code},{country code}&appid={API key}
+# @weather
 
 class WeatherAPIError(Exception):
     pass
@@ -39,6 +39,7 @@ class OpenWeather(WebAPI):
         # location
         self.zipcode = zipcode
         self.city = city
+        self.keyword = "@weather" # displays desceription of weather
 
         # weather
         self.temperature = None
@@ -53,21 +54,11 @@ class OpenWeather(WebAPI):
         self.description = None
 
 
-    def set_apikey(self, apikey: str) -> None:
-        """
-        Sets the apikey requrired to make requests to a web API.
-        :param apikey: The apikey supplied by the API service
-        """
-        super().set_apikey(apikey)
-
-
     # @abstract so is overriden from WebAPI
     def load_data(self) -> None:
         """
         Calls the web api using the required values and stores the response in class data attributes.
         """
-        # TODO: use the apikey data attribute and the urllib module to request data from the wbe api. See sample code at the beg of part 1 for a hint
-        # TODO: addign the necessary resp data to the requred class data attributes
         url = f"http://api.openweathermap.org/data/2.5/weather?zip={self.zipcode},{self.city}&appid={self.api_key}"
         try:
             data = self._download_url(url)
@@ -97,14 +88,22 @@ class OpenWeather(WebAPI):
         """
         try:
             data = self.data
+            if not "rain" in data.keys():
+                rain = None
+            else:
+                rain = data["rain"]
+            if not "clouds" in data.keys():
+                clouds = None
+            else:
+                clouds = data["clouds"]
             weather_tuple = WeatherTuple(data["coord"],
                                             data["weather"],
                                             data["base"],
                                             data["main"],
                                             data["visibility"],
                                             data["wind"],
-                                            data["rain"],
-                                            data["clouds"],
+                                            rain,
+                                            clouds,
                                             data["dt"],
                                             data["sys"],
                                             data["timezone"],
@@ -115,5 +114,13 @@ class OpenWeather(WebAPI):
         except Exception as ex:
             raise WeatherAPIError(f"Weather data not sorted: {ex}")
         
-    def transclude(self):
-        pass
+    def transclude(self, message: str) -> str:
+        if self.keyword in message:
+            message_list = message.split()
+            for m in range(len(message_list)):
+                if message_list[m] == self.keyword:
+                    message_list[m] = self.description
+            output = " ".join(message_list)
+        else:
+            output = message
+        return output
