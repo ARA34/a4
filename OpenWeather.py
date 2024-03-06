@@ -7,7 +7,7 @@
 
 # Alex Reyes Aranda
 # areyesar@uci.edu
-# STUDENT ID
+# 69754988
 
 from WebAPI import *
 
@@ -16,6 +16,7 @@ from WebAPI import *
 
 class WeatherAPIError(Exception):
     pass
+
 
 WeatherTuple = namedtuple("WeatherTuple", ["coord",
                                            "weather",
@@ -31,6 +32,7 @@ WeatherTuple = namedtuple("WeatherTuple", ["coord",
                                            "id",
                                            "name",
                                            "cod"])
+
 
 class OpenWeather(WebAPI):
     def __init__(self, zipcode, city):
@@ -113,7 +115,8 @@ class OpenWeather(WebAPI):
             return weather_tuple
         except Exception as ex:
             raise WeatherAPIError(f"Weather data not sorted: {ex}")
-        
+
+
     def transclude(self, message: str) -> str:
         if self.keyword in message:
             message_list = message.split()

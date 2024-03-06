@@ -7,7 +7,7 @@
 
 # Alex Reyes Aranda
 # areyesar@uci.edu
-# STUDENT ID
+# 69754988
 
 import urllib, json
 from urllib import request,error

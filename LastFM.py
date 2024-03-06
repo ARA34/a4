@@ -7,10 +7,9 @@
 
 # Alex Reyes Aranda
 # areyesar@uci.edu
-# STUDENT ID
+# 69754988
 
 # @lastfm
-
 
 from WebAPI import *
 url = "https://ws.audioscrobbler.com/2.0"
@@ -19,6 +18,7 @@ API_KEY_2 = "0356663ee33a0a5d27428b1f63011652"
 
 class LastFMAPIError(Exception):
     pass
+
 
 lastFMTuple = namedtuple("LastFMTuple",["topsong", "playcount"])
 
@@ -72,6 +72,7 @@ class LastFM(WebAPI):
         except Exception as ex:
             raise LastFMAPIError(f"get_top_track unsuccesful: {ex}")
         return top_song
+
 
     def transclude(self, message: str) -> str:
         if self.keyword in message:
