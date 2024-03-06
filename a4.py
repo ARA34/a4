@@ -157,9 +157,10 @@ def main():
             for i in range(len(tup_list)):
                 if tup_list[i][0] == "-addpost":
                     message = tup_list[i][1]
-                    # transclude message twice
-                    message = open_weather.transclude(message) # Weather Transclusion
-                    message = lastfm.transclude(message) # LastFM Transcluison
+                    # Weather Transclusion
+                    message = open_weather.transclude(message)
+                    # LastFM Transcluison
+                    message = lastfm.transclude(message)
                     tup_list[i] = (tup_list[i][0], message)
 
             if profile_loaded_online:

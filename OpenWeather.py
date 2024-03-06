@@ -118,12 +118,17 @@ class OpenWeather(WebAPI):
 
 
     def transclude(self, message: str) -> str:
-        if self.keyword in message:
-            message_list = message.split()
-            for m in range(len(message_list)):
-                if message_list[m] == self.keyword:
-                    message_list[m] = self.description
-            output = " ".join(message_list)
-        else:
-            output = message
-        return output
+        try:
+            if self.keyword in message:
+                message_list = message.split()
+                for m in range(len(message_list)):
+                    if message_list[m] == self.keyword:
+                        message_list[m] = self.description
+                output = " ".join(message_list)
+            else:
+                output = message
+            return output
+        except Exception as ex:
+            raise WeatherAPIError("There was an error "+
+                                  "transcluding: ", ex)
+

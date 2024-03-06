@@ -1,4 +1,3 @@
-
 # Starter code for assignment 3 in ICS 32 
 # Programming with Software Libraries in Python
 
@@ -16,11 +15,12 @@ import Profile
 import time
 import ds_client as dsc
 
+
 class DSPServerError(Exception):
-  pass
+    pass
 
 
-msg_info = namedtuple('msg_info', ['type','message','token'])
+msg_info = namedtuple('msg_info', ['type', 'message', 'token'])
 
 
 JOIN = "join"
@@ -56,18 +56,29 @@ def extract_json(json_msg: str) -> msg_info:
 def join(server: str, port: int, username: str, password: str, token=""):
     username = username.strip()
     if username != "" and len(username) > 1:
-        return dsc.send(server=server, port=port, username=username, password=password, message="", bio=None)
+        return dsc.send(server=server,
+                        port=port,
+                        username=username,
+                        password=password,
+                        message="",
+                        bio=None)
     else:
-        print(f"A username cannot be only whitespaces, empty, or a single character. Please try again.")
- 
+        print(f"A username cannot be only whitespaces, " +
+               "empty, or a single character. Please try again.")
+
 
 def post(server: str, port: int, username: str, password: str, message: str):
     message = message.strip()
     if message != "" and len(message) > 1:
         print(f"Your message [{message}] was posted")
-        return dsc.send(server=server, port=port, username=username, password=password, message=message)
+        return dsc.send(server=server,
+                        port=port,
+                        username=username,
+                        password=password,
+                        message=message)
     else:
-        print("You cannot post empty or whitespace only posts or single character. Please Try again.")
+        print("You cannot post empty or whitespace only " +
+              "posts or single character. Please Try again.")
         return False
 
 
@@ -75,7 +86,18 @@ def bio(server: str, port: int, username: str, password: str, bio: str):
     bio = bio.strip()
     if bio != "" and len(bio) > 1:
         print(f"Your bio was changed to [{bio}]")
-        return dsc.send(server=server, port=port, username=username, password=password, message ="", bio=bio)
+        return dsc.send(server=server,
+                        port=port,
+                        username=username,
+                        password=password,
+                        message="",
+                        bio=bio)
     else:
-        print("You cannot have an empty or only whitespace bio or single character. Please try again.")
-        return dsc.send(server=server, port=port, username=username, password=password, message="", bio=bio)
+        print("You cannot have an empty or only whitespace bio " +
+              "or single character. Please try again.")
+        return dsc.send(server=server,
+                        port=port,
+                        username=username,
+                        password=password,
+                        message="",
+                        bio=bio)

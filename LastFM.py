@@ -75,12 +75,19 @@ class LastFM(WebAPI):
 
 
     def transclude(self, message: str) -> str:
-        if self.keyword in message:
-            message_list = message.split()
-            for m in range(len(message_list)):
-                if message_list[m] == self.keyword:
-                    message_list[m] = str(self.playcount)
-            output = " ".join(message_list)
-        else:
-            output = message
-        return output
+        try:
+            if self.keyword in message:
+                message_list = message.split()
+                for m in range(len(message_list)):
+                    if message_list[m] == self.keyword:
+                        message_list[m] = str(self.playcount)
+                output = " ".join(message_list)
+            else:
+                output = message
+            return output
+        except Exception as ex:
+            if self.artist is None:
+                raise LastFMAPIError("There is no artist, please pass an " +
+                                     "artist as a parameter in the object", ex)
+            raise LastFMAPIError(ex)
+
