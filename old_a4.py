@@ -17,7 +17,7 @@ def main():
     ccode = "US"
     weather_apikey = "74b398cb32ec1a411463ab90288a8b6a"
     lastfm_api_key = "0356663ee33a0a5d27428b1f63011652"
-    artist = "kanye"
+    artist = f"kanye"
 
     open_weather = OpenWeather(zipcode, ccode)
     open_weather.set_apikey(weather_apikey)

@@ -1,4 +1,4 @@
-# Starter code for assignment 3 in ICS 32 
+# Starter code for assignment 3 in ICS 32
 # Programming with Software Libraries in Python
 
 # Replace the following placeholders with your information.
@@ -49,7 +49,7 @@ def extract_json(json_msg: str) -> msg_info:
             token = json_obj["response"]["token"]
             msg_info_1 = msg_info(type, message, token)
     except json.JSONDecodeError:
-      print("Json cannot be decoded.")
+        print("Json cannot be decoded.")
     return msg_info_1
 
 
@@ -64,7 +64,7 @@ def join(server: str, port: int, username: str, password: str, token=""):
                         bio=None)
     else:
         print(f"A username cannot be only whitespaces, " +
-               "empty, or a single character. Please try again.")
+              "empty, or a single character. Please try again.")
 
 
 def post(server: str, port: int, username: str, password: str, message: str):
