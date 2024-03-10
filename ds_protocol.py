@@ -12,7 +12,6 @@ import json
 from collections import namedtuple
 import socket
 import Profile
-import time
 import ds_client as dsc
 
 

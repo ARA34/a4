@@ -118,7 +118,11 @@ class OpenWeather(WebAPI):
                 message_list = message.split()
                 for m in range(len(message_list)):
                     if message_list[m] == self.keyword:
-                        message_list[m] = self.description
+                        if self.zipcode or self.city is not None:
+                            message_list[m] = str(self.description)
+                        else:
+                            message_list[m] = "Error there is either " + \
+                                              "no zipcode or no city input"
                 output = " ".join(message_list)
             else:
                 output = message

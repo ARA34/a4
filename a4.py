@@ -58,10 +58,6 @@ def main():
     lastfm_api_key = "0356663ee33a0a5d27428b1f63011652"
     artist = "kanye"
 
-    open_weather = OpenWeather(zipcode, ccode)
-    open_weather.set_apikey(weather_apikey)
-    open_weather.load_data()
-
     input_1 = print_user_options()
     p_input_1 = parse_inputs(input_1)
     command_input = p_input_1[0]
@@ -95,8 +91,12 @@ def main():
             for i in range(len(tup_list)):
                 if tup_list[i][0] == "-addpost":
                     message = tup_list[i][1]
+                    if "@weather" in message:
+                        open_weather = OpenWeather(zipcode, ccode)
+                        open_weather.set_apikey(weather_apikey)
+                        open_weather.load_data()
                     # weather api transclusion
-                    message = open_weather.transclude(message)
+                        message = open_weather.transclude(message)
                     if "@lastfm" in message:
                         user_artist = input("Enter the name of an " +
                                             "artist in the LastFM database: ")
@@ -159,8 +159,12 @@ def main():
             for i in range(len(tup_list)):
                 if tup_list[i][0] == "-addpost":
                     message = tup_list[i][1]
-                    # Weather Transclusion
-                    message = open_weather.transclude(message)
+                    if "@weather" in message:
+                        open_weather = OpenWeather(zipcode, ccode)
+                        open_weather.set_apikey(weather_apikey)
+                        open_weather.load_data()
+                        # Weather Transclusion
+                        message = open_weather.transclude(message)
                     if "@lastfm" in message:
                         user_artist = input("Enter the name of an " +
                                             "artist in the LastFM database: ")
