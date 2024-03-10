@@ -25,9 +25,9 @@ lastFMTuple = namedtuple("LastFMTuple", ["topsong", "playcount"])
 
 
 class LastFM(WebAPI):
-    def __init__(self, artist):
+    def __init__(self):
         super().__init__()
-        self.artist = artist
+        self.artist = "kanye"
         self.top_song = None
         self.playcount = None
         # displays the number of plays for a
@@ -58,6 +58,9 @@ class LastFM(WebAPI):
         top_tuple = self.get_top_track()
         fm_tuple = lastFMTuple(top_tuple[0], top_tuple[1])
         return fm_tuple
+    
+    def set_artist(self, artist: str) -> None:
+        self.artist = artist
 
     def get_top_track(self) -> tuple:
         """
@@ -89,8 +92,8 @@ class LastFM(WebAPI):
                 for m in range(len(message_list)):
                     if message_list[m] == self.keyword:
                         if self.artist is not None:
-                            message_list[m] = f"Top plays for selected " + \
-                                              f"artist: {str(self.playcount)}"
+                            message_list[m] = f"Top plays for {self.artist}" + \
+                                              f": {str(self.playcount)}"
                         else:
                             message_list[m] = f"Error you need to assign " + \
                                               f"an artist to call @lastfm"

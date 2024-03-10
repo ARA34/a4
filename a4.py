@@ -92,7 +92,7 @@ def main():
                 if tup_list[i][0] == "-addpost":
                     message = tup_list[i][1]
                     if "@weather" in message:
-                        open_weather = OpenWeather(zipcode, ccode)
+                        open_weather = OpenWeather()
                         open_weather.set_apikey(weather_apikey)
                         open_weather.load_data()
                     # weather api transclusion
@@ -100,7 +100,8 @@ def main():
                     if "@lastfm" in message:
                         user_artist = input("Enter the name of an " +
                                             "artist in the LastFM database: ")
-                        lastfm = LastFM(user_artist)
+                        lastfm = LastFM()
+                        lastfm.set_artist(user_artist)
                         lastfm.set_apikey(lastfm_api_key)
                         lastfm.load_data()
                     # LastFM Transcluison
@@ -160,7 +161,7 @@ def main():
                 if tup_list[i][0] == "-addpost":
                     message = tup_list[i][1]
                     if "@weather" in message:
-                        open_weather = OpenWeather(zipcode, ccode)
+                        open_weather = OpenWeather()
                         open_weather.set_apikey(weather_apikey)
                         open_weather.load_data()
                         # Weather Transclusion
@@ -168,7 +169,8 @@ def main():
                     if "@lastfm" in message:
                         user_artist = input("Enter the name of an " +
                                             "artist in the LastFM database: ")
-                        lastfm = LastFM(user_artist)
+                        lastfm = LastFM()
+                        lastfm.set_artist(user_artist)
                         lastfm.set_apikey(lastfm_api_key)
                         lastfm.load_data()
                         # lastfm transclusion

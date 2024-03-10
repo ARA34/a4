@@ -37,10 +37,10 @@ WeatherTuple = namedtuple("WeatherTuple", ["coord",
 
 
 class OpenWeather(WebAPI):
-    def __init__(self, zipcode, city):
+    def __init__(self):
         super().__init__()
-        self.zipcode = zipcode
-        self.city = city
+        self.zipcode = "92697"
+        self.city = "US"
         self.keyword = "@weather"
         self.temperature = None
         self.high_temperature = None
