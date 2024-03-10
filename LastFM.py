@@ -88,13 +88,15 @@ class LastFM(WebAPI):
                 message_list = message.split()
                 for m in range(len(message_list)):
                     if message_list[m] == self.keyword:
-                        message_list[m] = str(self.playcount)
+                        if self.artist is not None:
+                            message_list[m] = f"Top plays for selected " + \
+                                              f"artist: {str(self.playcount)}"
+                        else:
+                            message_list[m] = f"Error you need to assign " + \
+                                              f"an artist to call @lastfm"
                 output = " ".join(message_list)
             else:
                 output = message
             return output
         except Exception as ex:
-            if self.artist is None:
-                raise LastFMAPIError("There is no artist, please pass an " +
-                                     "artist as a parameter in the object", ex)
-            raise LastFMAPIError(ex)
+            raise LastFMAPIError("Something went wrong: ", ex)

@@ -34,7 +34,7 @@ OPTIONS2 = ("Now that you've created an account or logged in.\n" +
 
 def convert_online():
     usr_input = input("Would you like to make this information" +
-                      " public online(yes or no).\n " +
+                      " public online(yes or no).\n" +
                       "Saying yes will make everything you" +
                       " type in public: \n").lower()
     while usr_input != "no" and usr_input != "yes":
@@ -61,10 +61,6 @@ def main():
     open_weather = OpenWeather(zipcode, ccode)
     open_weather.set_apikey(weather_apikey)
     open_weather.load_data()
-
-    lastfm = LastFM(artist)
-    lastfm.set_apikey(lastfm_api_key)
-    lastfm.load_data()
 
     input_1 = print_user_options()
     p_input_1 = parse_inputs(input_1)
@@ -101,8 +97,14 @@ def main():
                     message = tup_list[i][1]
                     # weather api transclusion
                     message = open_weather.transclude(message)
+                    if "@lastfm" in message:
+                        user_artist = input("Enter the name of an " +
+                                            "artist in the LastFM database: ")
+                        lastfm = LastFM(user_artist)
+                        lastfm.set_apikey(lastfm_api_key)
+                        lastfm.load_data()
                     # LastFM Transcluison
-                    message = lastfm.transclude(message)
+                        message = lastfm.transclude(message)
                     tup_list[i] = (tup_list[i][0], message)
 
             if profile_loaded_online:
@@ -159,10 +161,15 @@ def main():
                     message = tup_list[i][1]
                     # Weather Transclusion
                     message = open_weather.transclude(message)
-                    # LastFM Transcluison
-                    message = lastfm.transclude(message)
+                    if "@lastfm" in message:
+                        user_artist = input("Enter the name of an " +
+                                            "artist in the LastFM database: ")
+                        lastfm = LastFM(user_artist)
+                        lastfm.set_apikey(lastfm_api_key)
+                        lastfm.load_data()
+                        # lastfm transclusion
+                        message = lastfm.transclude(message)
                     tup_list[i] = (tup_list[i][0], message)
-
             if profile_loaded_online:
                 allows = ["-addpost", "-bio"]
                 valid_tups = list(filter(lambda d: d[0] in allows, tup_list))
